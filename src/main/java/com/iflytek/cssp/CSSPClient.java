@@ -205,14 +205,14 @@ public class CSSPClient implements CSSP {
 	public boolean setContainerACL(AccessControlList acl)throws CSSPException, IOException
 	{
 		judge_is_login();
-		//�����ù���ö�ٵ�ʱ������ǹ����������֮ǰ�й���������������ö�ټ���
-		//���֮ǰ���ǹ�������ֻ�����˹���ö�پ����쳣
+		//在设置公共枚举的时候必须是公共读，如果之前有公共读这把这个公共枚举加上
+		//如果之前不是公共读，只设置了公共枚举就抛异常
 		SwiftClient swiftclient = new SwiftClient();
 		
 		Map<String, String> query = new LinkedHashMap<String, String>();
 		
 		String acl_list = "" ;
-		if(acl.name().equals("Private"))//����Ϊ˽�ж�д֮�������Ĳ��������Ը���
+		if(acl.name().equals("Private"))//设置为私有读写之后，其他的参数都可以覆盖
 		{
 			query.put(Container_READ, "*");
 		}
@@ -234,8 +234,8 @@ public class CSSPClient implements CSSP {
 				this.ContainerName, query, this.AccessKey, this.SecretKey);
 		return true;
 	}
-	//��������Ϊ������֮��������ð�������Ҫ���Ͳ�����ִ��,����֮ǰ���ù�������
-	//���ð������ͺ�����������֮ǰ����Ϊ����������һ�β��ܵ��ð������ͺ���������,ǿ���趨�ڰ���������*.��ͷ
+	//必须设置为公共读之后才能设置白名单，要不就不可以执行,或者之前设置过白名单
+	//设置白名单和黑名单必须是之前设置为公共读，第一次不能调用白名单和黑名单功能,强制设定黑白名单都已
 	@Override
 	public boolean setContainerACLReferList(String whitelist, String blacklist)throws CSSPException, IOException{
     	judge_is_login();
@@ -271,27 +271,27 @@ public class CSSPClient implements CSSP {
 			}
 			newblacklist = blacklist.substring(blacklist.indexOf("*.")+2);
 		}
-		//���ж�֮ǰ��Ȩ�ޣ������˽�ж�д����ô�������ͺ����������ò��ˣ�ֻ�й������͹���ö�پͿ���ö��
-		//����Ѿ�����Ϊ�����������а������ͺ���������ô�Ϳ��Լ������ð������ͺ�����
+		//先判断之前的权限：如果是私有读写，那么白名单和黑名单就设置不了，只有公共读和公共枚举就可以枚举
+		//如果已经设置为公共读或者有白名单和黑名单，那么就可以继续设置白名单和黑名单
 		SwiftClientResponse headContainer;
 		headContainer = swiftclient.HeadContainer(Access_URL,
 				this.ContainerName, this.AccessKey, this.SecretKey);
 		ParameterHandler Container_meta_handler = new ParameterHandler();
 		String acl_old;
 		String ACL = Container_meta_handler.getdata_from_header(headContainer.Headers, Container_READ);
-		if(ACL == null || ACL.equals("*"))//û�����ù���Ϊ˽�ж�д�򱨴�:Ҳ�����ж��Ƿ�ΪpublicȨ��,����Ȩ��Ҫ����.r:
+		if(ACL == null || ACL.equals("*"))//没有设置过或为私有读写则报错:也就是判断是否为public权限,公共权限要包含.r:
 		{
 			throw new ACLException(PRIVATE_REFER);
 		}
-		else if(ACL.indexOf(".r:") == -1)//˽��Ȩ�޻򹫹�ö��
+		else if(ACL.indexOf(".r:") == -1)//私有权限或公共枚举
 		{
 			throw new ACLException(PRIVATE_REFER);
 		}
-		else if(ACL.indexOf(".r:*,.rlistings") != -1)//������д
+		else if(ACL.indexOf(".r:*,.rlistings") != -1)//公共读写
 		{
 			acl_old = ACL.replace(".r:*,.rlistings", "");
 		}
-		else if(ACL.indexOf(".r:*") != -1)//������д
+		else if(ACL.indexOf(".r:*") != -1)//公共读写
 		{
 			if(ACL.indexOf(".r:*,") != -1)
 			{
@@ -965,7 +965,7 @@ public class CSSPClient implements CSSP {
 				|| request == null) {
 			throw new ParameterException(PARAMETER_NULL);
 		}
-		if(request.Get_Sst() == null)//�ش��Ĳ���
+		if(request.Get_Sst() == null)//必传的参数
 		{
 			throw new ParameterException(PARAMETER_NULL);
 		}
