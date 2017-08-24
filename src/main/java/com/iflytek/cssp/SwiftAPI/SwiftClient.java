@@ -35,6 +35,7 @@ import org.apache.http.client.methods.HttpHead;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.params.ClientPNames;
+import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.PoolingClientConnectionManager;
@@ -61,9 +62,9 @@ public class SwiftClient {
     private final String AUTH = "Authorization";
     private final String CSSP = "CSSP ";
     private final int connectionTimeout = 6000;
-    //Á¬½ÓÒ»¸öurlµÄÁ¬½ÓµÈ´ýÊ±¼ä, Å×³öÒì³£ÎªIOExceptionµÄ×ÓÀàorg.apache.http.conn.ConnectTimeoutException
+    //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½urlï¿½ï¿½ï¿½ï¿½ï¿½ÓµÈ´ï¿½Ê±ï¿½ï¿½, ï¿½×³ï¿½ï¿½ì³£ÎªIOExceptionï¿½ï¿½ï¿½ï¿½ï¿½ï¿½org.apache.http.conn.ConnectTimeoutException
     private final int soTimeout = 10000;
-    //Á¬½ÓÉÏÒ»¸öurl£¬»ñÈ¡responseµÄ·µ»ØµÈ´ýÊ±¼ä£¬Å×³öÒì³£ÎªIOExceptionµÄ×ÓÀà java.net.SocketTimeoutException
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½urlï¿½ï¿½ï¿½ï¿½È¡responseï¿½Ä·ï¿½ï¿½ØµÈ´ï¿½Ê±ï¿½ä£¬ï¿½×³ï¿½ï¿½ì³£ÎªIOExceptionï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ java.net.SocketTimeoutException
     public SwiftClient(){
         
     }
@@ -259,8 +260,8 @@ public class SwiftClient {
     		 Map<String, String> query, String accesskey, String secretkey) throws IOException, CSSPException
      {
     	PoolingClientConnectionManager cm = new PoolingClientConnectionManager();
-    	cm.setMaxTotal(200);//¿Í»§¶Ë×Ü²¢ÐÐÁ´½Ó×î´óÊý   
-    	cm.setDefaultMaxPerRoute(20);//Ã¿¸öÖ÷»úµÄ×î´ó²¢ÐÐÁ´½ÓÊý 
+    	cm.setMaxTotal(200);//ï¿½Í»ï¿½ï¿½ï¿½ï¿½Ü²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   
+    	cm.setDefaultMaxPerRoute(20);//Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 
         Map<String, String> headers = new LinkedHashMap<String,  String>();
         HttpGet httpget = new HttpGet(url + "/"+ encode(Container) + "/" + encode(object_name) );
@@ -301,7 +302,7 @@ public class SwiftClient {
     }
     
     public SwiftClientResponse PutObject(String url, String Container, String object_name, 
-    		InputStream content, long content_length, String md5sum,  String content_type, Map<String, String> object_metadata
+    		byte[] content, long content_length, String md5sum,  String content_type, Map<String, String> object_metadata
     		, String accesskey, String secretkey) throws IOException, CSSPException
     {
     	BasicHttpParams httpParameters = new BasicHttpParams();
@@ -323,7 +324,8 @@ public class SwiftClient {
         //httpput.addHeader(AUTH_TOKEN,  token);
         if(content != null)
         {
-            InputStreamEntity body = new InputStreamEntity (content, content_length);
+          //  InputStreamEntity body = new InputStreamEntity (content, content_length);
+        	ByteArrayEntity body = new ByteArrayEntity (content);
             body.setChunked(false);
             httpput.setEntity(body);
         }
