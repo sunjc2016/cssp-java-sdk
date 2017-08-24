@@ -62,9 +62,9 @@ public class SwiftClient {
     private final String AUTH = "Authorization";
     private final String CSSP = "CSSP ";
     private final int connectionTimeout = 6000;
-    //����һ��url�����ӵȴ�ʱ��, �׳��쳣ΪIOException������org.apache.http.conn.ConnectTimeoutException
+    //连接一个url的连接等待时间, 抛出异常为IOException的子类org.apache.http.conn.ConnectTimeoutException
     private final int soTimeout = 10000;
-    //������һ��url����ȡresponse�ķ��صȴ�ʱ�䣬�׳��쳣ΪIOException������ java.net.SocketTimeoutException
+    //连接上一个url，获取response的返回等待时间，抛出异常为IOException的子类 java.net.SocketTimeoutException
     public SwiftClient(){
         
     }
@@ -260,8 +260,8 @@ public class SwiftClient {
     		 Map<String, String> query, String accesskey, String secretkey) throws IOException, CSSPException
      {
     	PoolingClientConnectionManager cm = new PoolingClientConnectionManager();
-    	cm.setMaxTotal(200);//�ͻ����ܲ������������   
-    	cm.setDefaultMaxPerRoute(20);//ÿ������������������� 
+    	cm.setMaxTotal(200);//客户端总并行链接最大数   
+    	cm.setDefaultMaxPerRoute(20);//每个主机的最大并行链接数 
 
         Map<String, String> headers = new LinkedHashMap<String,  String>();
         HttpGet httpget = new HttpGet(url + "/"+ encode(Container) + "/" + encode(object_name) );
