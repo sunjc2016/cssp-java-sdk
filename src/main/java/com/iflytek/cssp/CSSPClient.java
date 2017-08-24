@@ -205,14 +205,14 @@ public class CSSPClient implements CSSP {
 	public boolean setContainerACL(AccessControlList acl)throws CSSPException, IOException
 	{
 		judge_is_login();
-		//ÔÚÉèÖÃ¹«¹²Ã¶¾ÙµÄÊ±ºò±ØÐëÊÇ¹«¹²¶Á£¬Èç¹ûÖ®Ç°ÓÐ¹«¹²¶ÁÕâ°ÑÕâ¸ö¹«¹²Ã¶¾Ù¼ÓÉÏ
-		//Èç¹ûÖ®Ç°²»ÊÇ¹«¹²¶Á£¬Ö»ÉèÖÃÁË¹«¹²Ã¶¾Ù¾ÍÅ×Òì³£
+		//ï¿½ï¿½ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½Ã¶ï¿½Ùµï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½Ð¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½Ù¼ï¿½ï¿½ï¿½
+		//ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½Ë¹ï¿½ï¿½ï¿½Ã¶ï¿½Ù¾ï¿½ï¿½ï¿½ï¿½ì³£
 		SwiftClient swiftclient = new SwiftClient();
 		
 		Map<String, String> query = new LinkedHashMap<String, String>();
 		
 		String acl_list = "" ;
-		if(acl.name().equals("Private"))//ÉèÖÃÎªË½ÓÐ¶ÁÐ´Ö®ºó£¬ÆäËûµÄ²ÎÊý¶¼¿ÉÒÔ¸²¸Ç
+		if(acl.name().equals("Private"))//ï¿½ï¿½ï¿½ï¿½ÎªË½ï¿½Ð¶ï¿½Ð´Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½
 		{
 			query.put(Container_READ, "*");
 		}
@@ -234,8 +234,8 @@ public class CSSPClient implements CSSP {
 				this.ContainerName, query, this.AccessKey, this.SecretKey);
 		return true;
 	}
-	//±ØÐëÉèÖÃÎª¹«¹²¶ÁÖ®ºó²ÅÄÜÉèÖÃ°×Ãûµ¥£¬Òª²»¾Í²»¿ÉÒÔÖ´ÐÐ,»òÕßÖ®Ç°ÉèÖÃ¹ý°×Ãûµ¥
-	//ÉèÖÃ°×Ãûµ¥ºÍºÚÃûµ¥±ØÐëÊÇÖ®Ç°ÉèÖÃÎª¹«¹²¶Á£¬µÚÒ»´Î²»ÄÜµ÷ÓÃ°×Ãûµ¥ºÍºÚÃûµ¥¹¦ÄÜ,Ç¿ÖÆÉè¶¨ºÚ°×Ãûµ¥¶¼ÒÑ*.¿ªÍ·
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î²ï¿½ï¿½Üµï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Ç¿ï¿½ï¿½ï¿½è¶¨ï¿½Ú°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*.ï¿½ï¿½Í·
 	@Override
 	public boolean setContainerACLReferList(String whitelist, String blacklist)throws CSSPException, IOException{
     	judge_is_login();
@@ -271,27 +271,27 @@ public class CSSPClient implements CSSP {
 			}
 			newblacklist = blacklist.substring(blacklist.indexOf("*.")+2);
 		}
-		//ÏÈÅÐ¶ÏÖ®Ç°µÄÈ¨ÏÞ£ºÈç¹ûÊÇË½ÓÐ¶ÁÐ´£¬ÄÇÃ´°×Ãûµ¥ºÍºÚÃûµ¥¾ÍÉèÖÃ²»ÁË£¬Ö»ÓÐ¹«¹²¶ÁºÍ¹«¹²Ã¶¾Ù¾Í¿ÉÒÔÃ¶¾Ù
-		//Èç¹ûÒÑ¾­ÉèÖÃÎª¹«¹²¶Á»òÕßÓÐ°×Ãûµ¥ºÍºÚÃûµ¥£¬ÄÇÃ´¾Í¿ÉÒÔ¼ÌÐøÉèÖÃ°×Ãûµ¥ºÍºÚÃûµ¥
+		//ï¿½ï¿½ï¿½Ð¶ï¿½Ö®Ç°ï¿½ï¿½È¨ï¿½Þ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë½ï¿½Ð¶ï¿½Ð´ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã²ï¿½ï¿½Ë£ï¿½Ö»ï¿½Ð¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½Ã¶ï¿½Ù¾Í¿ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½
+		//ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã´ï¿½Í¿ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½ï¿½ï¿½
 		SwiftClientResponse headContainer;
 		headContainer = swiftclient.HeadContainer(Access_URL,
 				this.ContainerName, this.AccessKey, this.SecretKey);
 		ParameterHandler Container_meta_handler = new ParameterHandler();
 		String acl_old;
 		String ACL = Container_meta_handler.getdata_from_header(headContainer.Headers, Container_READ);
-		if(ACL == null || ACL.equals("*"))//Ã»ÓÐÉèÖÃ¹ý»òÎªË½ÓÐ¶ÁÐ´Ôò±¨´í:Ò²¾ÍÊÇÅÐ¶ÏÊÇ·ñÎªpublicÈ¨ÏÞ,¹«¹²È¨ÏÞÒª°üº¬.r:
+		if(ACL == null || ACL.equals("*"))//Ã»ï¿½ï¿½ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½ÎªË½ï¿½Ð¶ï¿½Ð´ï¿½ò±¨´ï¿½:Ò²ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ÎªpublicÈ¨ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½.r:
 		{
 			throw new ACLException(PRIVATE_REFER);
 		}
-		else if(ACL.indexOf(".r:") == -1)//Ë½ÓÐÈ¨ÏÞ»ò¹«¹²Ã¶¾Ù
+		else if(ACL.indexOf(".r:") == -1)//Ë½ï¿½ï¿½È¨ï¿½Þ»ò¹«¹ï¿½Ã¶ï¿½ï¿½
 		{
 			throw new ACLException(PRIVATE_REFER);
 		}
-		else if(ACL.indexOf(".r:*,.rlistings") != -1)//¹«¹²¶ÁÐ´
+		else if(ACL.indexOf(".r:*,.rlistings") != -1)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´
 		{
 			acl_old = ACL.replace(".r:*,.rlistings", "");
 		}
-		else if(ACL.indexOf(".r:*") != -1)//¹«¹²¶ÁÐ´
+		else if(ACL.indexOf(".r:*") != -1)//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´
 		{
 			if(ACL.indexOf(".r:*,") != -1)
 			{
@@ -514,9 +514,8 @@ public class CSSPClient implements CSSP {
 		return object_listing;
 	}
 	
-	@Override
 	public PutObjectResult putObject(String objectname,
-			InputStream content, ObjectMetadata meta) throws CSSPException,
+			byte[] content, ObjectMetadata meta) throws CSSPException,
 			IOException {
 		if (content == null || meta == null) {
 			throw new ParameterException(PARAMETER_NULL);
@@ -530,9 +529,9 @@ public class CSSPClient implements CSSP {
 		return public_putObject(objectname, content, null, meta);
 	}
 
-	@Override
+	
 	public PutObjectResult putObject(String objectname,
-			InputStream content, String MD5, ObjectMetadata meta)
+			byte[] content, String MD5, ObjectMetadata meta)
 			throws CSSPException, IOException {
 		if (content == null || MD5 == null || meta == null) {
 			throw new ParameterException(PARAMETER_NULL);
@@ -546,7 +545,7 @@ public class CSSPClient implements CSSP {
 		return public_putObject(objectname, content, MD5, meta);
 	}
 
-	private PutObjectResult public_putObject(String objectname, InputStream content, String MD5,
+	private PutObjectResult public_putObject(String objectname, byte[] content, String MD5,
 			ObjectMetadata meta) throws CSSPException, IOException {
 		judge_is_login();
 		ParameterHandler judge_object_meta = new ParameterHandler();
@@ -822,9 +821,9 @@ public class CSSPClient implements CSSP {
 		return ini_uoload;
 	}
 
-	@Override
+	
 	public PutObjectResult uploadPart(String objectname,
-			InputStream content, long content_length, String MD5, String UploadID, int partnumber)
+			byte[] content, long content_length, String MD5, String UploadID, int partnumber)
 			throws CSSPException, IOException {
 		judge_is_login();
 		ParameterHandler judge_UploadID;
@@ -966,7 +965,7 @@ public class CSSPClient implements CSSP {
 				|| request == null) {
 			throw new ParameterException(PARAMETER_NULL);
 		}
-		if(request.Get_Sst() == null)//±Ø´«µÄ²ÎÊý
+		if(request.Get_Sst() == null)//ï¿½Ø´ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 		{
 			throw new ParameterException(PARAMETER_NULL);
 		}
@@ -1043,5 +1042,26 @@ public class CSSPClient implements CSSP {
 		} else if (Access_URL == null || this.SecretKey == null) {
 			throw new NotLoginException(NOTLOGINERROR);
 		}
+	}
+
+	@Override
+	public PutObjectResult putObject(String objectname, InputStream content, ObjectMetadata meta)
+			throws CSSPException, IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PutObjectResult putObject(String objectname, InputStream content, String MD5, ObjectMetadata meta)
+			throws CSSPException, IOException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public PutObjectResult uploadPart(String objectname, InputStream content, long content_length, String MD5,
+			String UploadID, int partnumber) throws CSSPException, IOException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
