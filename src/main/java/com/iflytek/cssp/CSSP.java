@@ -47,9 +47,12 @@ public interface CSSP {
     public ContainerACL getContainerACL()throws CSSPException,IOException;
     
     public PutObjectResult putObject(String objectname, InputStream content, ObjectMetadata meta) throws CSSPException, IOException; 
-
+    
+    public PutObjectResult putObject(String objectname, byte[] content, ObjectMetadata meta) throws CSSPException, IOException; 
+   
     public PutObjectResult putObject(String objectname, InputStream content, String MD5, ObjectMetadata meta)throws CSSPException, IOException;
-
+    
+    public PutObjectResult putObject(String objectname, byte[] content, String MD5, ObjectMetadata meta)throws CSSPException, IOException;
     public List<ObjectList> listObjects() throws CSSPException,  IOException;
     public List<ObjectList> listObjects(int limit) throws CSSPException,  IOException;
     public List<ObjectList> listObjects(int limit, String marker)throws CSSPException, IOException;
@@ -75,6 +78,8 @@ public interface CSSP {
    
     public PutObjectResult uploadPart(String objectname, InputStream content, long content_length, String MD5, String UploadID, int partnumber)throws CSSPException, IOException;
    
+    public PutObjectResult uploadPart(String objectname, byte[] content, long content_length, String MD5, String UploadID, int partnumber)throws CSSPException, IOException;
+
     public List<ObjectList> listMultipartUpload(String objectname, String UploadID)throws CSSPException, IOException;
 
     public boolean abortMultipartUpload(String objectname, String UploadID)throws CSSPException,IOException;
